@@ -60,22 +60,11 @@ $(document).ready(function(){
     }
      return flag;
     }
-
     $("#add_product").click(function(){
-      
      if(Tocheck()){
       $(".error").hide();
       $(".success").show();
-        
-
-     //    console.log($('#add_product').val());
      if($("#add_product").val() == "update"){
-        // console.log(products[indexForEdit][0]);
-         //alert(indexForEdit);
-         // var v1=$("#product_sku").val();
-         // console.log(v1);
-         // alert($("#product_quantity").val());
-         // console.log(products[indexForEdit][0]);
          products[indexForEdit][0]=$("#product_sku").val();
          products[indexForEdit][1]=$("#product_name").val();
          products[indexForEdit][2]=$("#product_price").val();
@@ -84,8 +73,6 @@ $(document).ready(function(){
          $("#add_product").val("add product");
      }
      else{
-       
-
        var sku = $("#product_sku").val();
        var name =$("#product_name").val();
        var price =$("#product_price").val();
@@ -99,89 +86,40 @@ $(document).ready(function(){
         $(".error").show();
     }
      });
-
-
       function display(){
-
+         $("#product_list").show();
          var text=" <tr><th>SKU</th> <th>Name</th><th>Price</th><th>Quantity</th><th>Action<th></tr> ";
-
          for(let i=0 ;i<products.length ;i++){
-
              text+= "<tr id='"+i+"'>";
-
              for(j=0;j<=3;j++){
-
                  text+="<td>"+products[i][j]+"</td>";
-
              }
-
-             text+="<td><a href='#' class='editItem'>Edit</a><a href='#' class='deleteItem'>Delete</a></td></tr>";
-
+             text+="<td><a href='#' class='editItem'>Edit</a>&nbsp&nbsp&nbsp<a href='#' class='deleteItem'>Delete</a></td></tr>";
          }
-
          console.log(text);
-
-         // $("#table").html(text);
-
          $('#table').html(text);
-
       }
-
- 
-
      $("#product_list").on("click",".deleteItem",function(event){
-
          if(confirm("Do you want to delete")){
-
             $(event.target).parent().parent().remove();
-
             var d= $(event.target).parent().parent()[0].id;
-
-            //alert(d);
-
             products.splice(d,1);
-
-            // alert($(event.target).closest('tr'));
-
-            //console.log(products);
-
-            //console.log(products);
-
+            if(products.length == 0){
+                $("#product_list").hide();
+            }
          }
-
      });
-
- 
-
-   
-
      $("#product_list").on("click",".editItem",function(event){
-
          indexForEdit = $(event.target).parent().parent()[0].id;
-
-       //  alert(indexForEdit);
-
          $("#product_sku").val(products[indexForEdit][0]);
-
          $("#product_name").val(products[indexForEdit][1]);
-
          $("#product_price").val(products[indexForEdit][2]);
-
          $("#product_quantity").val(products[indexForEdit][3]);
-
-     
-
          $("#add_product").val("update");
-
-         // $("#add_product").attr(id, update_product);
-
      });
-
-
      $("#notification").on("click",".close",function(event){
         $(event.target).parent().hide();
      });
-
  });
 
  
